@@ -428,19 +428,19 @@
 2024-12-16 16:17:10,656 - INFO - Processed data successfully written to reports/payment_summary.txt
 2024-12-16 16:17:10,658 - INFO - Starting to write DataFrame to text file: duration_summary.txt
 2024-12-16 16:17:10,676 - INFO - Processed data successfully written to reports/duration_summary.txt
-2024-12-16 16:26:00,628 - INFO - Starting to clear the contents of folder: reports
-2024-12-16 16:26:00,661 - INFO - Contents of folder reports have been cleared.
-2024-12-16 16:26:00,662 - INFO - Starting to manage tables in the database.
-2024-12-16 16:26:04,879 - INFO - Tables payment_summary_table and duration_summary_table have been recreated in the database.
-2024-12-16 16:26:04,881 - INFO - Starting to calculate payments summary.
-2024-12-16 16:26:06,684 - INFO - Payments summary successfully retrieved.
-2024-12-16 16:26:06,934 - INFO - Starting to calculate duration summary.
-2024-12-16 16:26:08,742 - INFO - Duration summary successfully retrieved.
-2024-12-16 16:26:08,991 - INFO - Starting to write DataFrame to table: payment_summary_table
-2024-12-16 16:26:11,046 - INFO - Data successfully written to table: payment_summary_table.
-2024-12-16 16:26:11,048 - INFO - Starting to write DataFrame to table: duration_summary_table
-2024-12-16 16:26:13,126 - INFO - Data successfully written to table: duration_summary_table.
-2024-12-16 16:26:13,128 - INFO - Starting to write DataFrame to text file: payment_summary.txt
-2024-12-16 16:26:13,148 - INFO - Processed data successfully written to reports/payment_summary.txt
-2024-12-16 16:26:13,150 - INFO - Starting to write DataFrame to text file: duration_summary.txt
-2024-12-16 16:26:13,164 - INFO - Processed data successfully written to reports/duration_summary.txt
+2024-12-16 17:30:54,920 - INFO - Starting to clear the contents of folder: reports
+2024-12-16 17:30:54,928 - INFO - Contents of folder reports have been cleared.
+2024-12-16 17:30:54,930 - INFO - Starting to manage tables in the database.
+2024-12-16 17:30:59,106 - INFO - Tables payment_summary_table and duration_summary_table have been recreated in the database.
+2024-12-16 17:30:59,108 - INFO - Starting to calculate payments summary.
+2024-12-16 17:31:00,963 - INFO - Payments summary successfully retrieved.
+2024-12-16 17:31:01,214 - INFO - Starting to calculate duration summary.
+2024-12-16 17:31:03,006 - INFO - Duration summary successfully retrieved.
+2024-12-16 17:31:03,258 - INFO - Starting to write DataFrame to table: payment_summary_table
+2024-12-16 17:31:05,288 - INFO - Data successfully written to table: payment_summary_table.
+2024-12-16 17:31:05,292 - INFO - Starting to write DataFrame to table: duration_summary_table
+2024-12-16 17:31:07,374 - INFO - Data successfully written to table: duration_summary_table.
+2024-12-16 17:31:07,376 - INFO - Starting to write DataFrame to text file: payment_summary.txt
+2024-12-16 17:31:07,393 - INFO - Processed data successfully written to reports/payment_summary.txt
+2024-12-16 17:31:07,395 - INFO - Starting to write DataFrame to text file: duration_summary.txt
+2024-12-16 17:31:07,412 - INFO - Processed data successfully written to reports/duration_summary.txt

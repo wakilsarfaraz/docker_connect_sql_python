@@ -238,4 +238,3 @@ if __name__ == "__main__":
     write_local_txt_output(payments_df, "reports", "payment_summary.txt")
     write_local_txt_output(duration_df, "reports", "duration_summary.txt")
 ```
-# docker_connect_sql_python
