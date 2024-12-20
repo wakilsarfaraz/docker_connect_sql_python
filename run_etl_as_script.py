@@ -5,7 +5,6 @@ import shutil
 import logging
 import getpass
 
-# Configure logging
 logging.basicConfig(level=logging.INFO, 
                     format='%(asctime)s - %(levelname)s - %(message)s',
                     handlers=[
@@ -13,8 +12,10 @@ logging.basicConfig(level=logging.INFO,
                         logging.StreamHandler()
                     ])
 
-# Function to clear the contents of a folder
 def clear_folder(folder_path):
+    '''
+    docstring for clear_folder() first change
+    '''
     logging.info(f"Starting to clear the contents of folder: {folder_path}")
     try:
         for item in os.listdir(folder_path):
@@ -27,39 +28,33 @@ def clear_folder(folder_path):
     except Exception as e:
         logging.error(f"Error while clearing folder {folder_path}: {e}")
 
-# Function to create tables in the database
+
 def manage_tables(connection_string):
+    '''
+    docstring for cmanage_tables() first change
+    '''
     logging.info("Starting to manage tables in the database.")
     try:
         connection = pyodbc.connect(connection_string)
         cursor = connection.cursor()
-
-        # Paths to the SQL files
         drop_payment_table_file = os.path.join('sqlFiles/tableManagement', 'drop_payment_summary_table.sql')
         drop_duration_table_file = os.path.join('sqlFiles/tableManagement', 'drop_duration_summary_table.sql')
         drop_profitable_table_file = os.path.join('sqlFiles/tableManagement','drop_profitable_actors_table.sql')
         create_payment_table_file = os.path.join('sqlFiles/tableManagement', 'create_payment_summary_table.sql')
         create_duration_table_file = os.path.join('sqlFiles/tableManagement', 'create_duration_summary_table.sql')
         create_profitable_actors_table_file = os.path.join('sqlFiles/tableManagement','create_profitable_actors_table.sql')
-
-        # Helper function to execute SQL files
         def execute_sql_file(file_path):
             with open(file_path, 'r') as file:
                 sql = file.read()
                 cursor.execute(sql)
-
-        # Execute drop table SQL files
         execute_sql_file(drop_payment_table_file)
         execute_sql_file(drop_duration_table_file)
         execute_sql_file(drop_profitable_table_file)
         connection.commit()
-
-        # Execute create table SQL files
         execute_sql_file(create_payment_table_file)
         execute_sql_file(create_duration_table_file)
         execute_sql_file(create_profitable_actors_table_file)
         connection.commit()
-
         logging.info("Tables:\n\n                                         payment_summary_table\n"         
                      "                                         duration_summary_table\n"
                      "                                         profitable_actors_table \n\n"
@@ -71,10 +66,12 @@ def manage_tables(connection_string):
     finally:
         if 'connection' in locals() and connection:
             connection.close()
-            
-            
-# Function to retrieve payments summary using an SQL file
+# manage_tables() function ends here   
+         
 def calculate_payments(sql_file_path, connection_string):
+    '''
+    docstring for calculate_payments() first change
+    '''
     logging.info("Starting to calculate payments summary.")
     try:
         connection = pyodbc.connect(connection_string)
@@ -93,7 +90,6 @@ def calculate_payments(sql_file_path, connection_string):
             connection.close()
     return payments_summary
 
-# Function to retrieve duration summary from an SQL query
 def calculate_duration(sql_file_path, connection_string):
     logging.info("Starting to calculate duration summary.")
     try:
@@ -113,7 +109,6 @@ def calculate_duration(sql_file_path, connection_string):
             connection.close()
     return duration_summary
 
-# Function to retrieve profitable actors from an SQL query
 def calculate_profitable_actors(sql_file_path, connection_string):
     logging.info("Starting to calculate profitable actors.")
     try:
@@ -133,7 +128,6 @@ def calculate_profitable_actors(sql_file_path, connection_string):
             connection.close()
     return profitable_actors
 
-# Function to write a DataFrame back into the database
 def write_dataframe_to_db(dataframe, table_name, connection_string):
     logging.info(f"Starting to write DataFrame to table: {table_name}")
     try:
@@ -153,7 +147,6 @@ def write_dataframe_to_db(dataframe, table_name, connection_string):
         if 'connection' in locals() and connection:
             connection.close()
 
-# Function to write DataFrame to a text file
 def write_local_txt_output(dataframe, folder_path, file_name):
     logging.info(f"Starting to write DataFrame to text file: {file_name}")
     try:
@@ -166,7 +159,8 @@ def write_local_txt_output(dataframe, folder_path, file_name):
         logging.error(f"An error occurred while writing to text file {file_name}: {e}")
         return None
 
-# Run the pipeline
+# Main block starts here
+
 if __name__ == "__main__":
     server = input("Please enter the SQL Server address (hint: starts with tcp and ends with .net): ").strip()
     username = input("Please enter your Username:").strip()
@@ -177,20 +171,16 @@ if __name__ == "__main__":
     f"Database=sakila;"
     f"Uid={username};"
     f"Pwd={password};"
-    f"Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;"
-)
+    f"Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;")
     target_folder = "reports"
-
     clear_folder(target_folder)
     manage_tables(connection_string)
     payments_df = calculate_payments("sqlFiles/queries/payments.sql", connection_string)
     duration_df = calculate_duration("sqlFiles/queries/filmduration.sql", connection_string)
     profitable_actors_df = calculate_profitable_actors("sqlFiles/queries/profitable_actors.sql", connection_string)
-
     write_dataframe_to_db(payments_df, "payment_summary_table", connection_string)
     write_dataframe_to_db(duration_df, "duration_summary_table", connection_string)
     write_dataframe_to_db(profitable_actors_df,"profitable_actors_table", connection_string)
-
     write_local_txt_output(payments_df, "reports", "payment_summary.txt")
     write_local_txt_output(duration_df, "reports", "duration_summary.txt")
     write_local_txt_output(profitable_actors_df, "reports", "profitable_actors.txt")

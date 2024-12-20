@@ -778,3 +778,143 @@
 2024-12-20 14:44:41,087 - INFO - Processed data successfully written to reports/duration_summary.txt
 2024-12-20 14:44:41,088 - INFO - Starting to write DataFrame to text file: profitable_actors.txt
 2024-12-20 14:44:41,107 - INFO - Processed data successfully written to reports/profitable_actors.txt
+2024-12-20 16:22:20,341 - INFO - Starting to clear the contents of folder: reports
+2024-12-20 16:22:20,354 - INFO - Contents of folder reports have been cleared.
+2024-12-20 16:22:20,356 - INFO - Starting to manage tables in the database.
+2024-12-20 16:22:24,395 - INFO - Tables:
+
+                                         payment_summary_table
+                                         duration_summary_table
+                                         profitable_actors_table 
+
+                                 have been recreated in the database.
+2024-12-20 16:22:24,397 - INFO - Starting to calculate payments summary.
+2024-12-20 16:22:25,956 - INFO - Payments summary successfully retrieved.
+2024-12-20 16:22:26,171 - INFO - Starting to calculate duration summary.
+2024-12-20 16:22:27,753 - INFO - Duration summary successfully retrieved.
+2024-12-20 16:22:27,974 - INFO - Starting to calculate profitable actors.
+2024-12-20 16:22:29,584 - INFO - Profitable actors successfully retrieved.
+2024-12-20 16:22:29,798 - INFO - Starting to write DataFrame to table: payment_summary_table
+2024-12-20 16:22:31,545 - INFO - Data successfully written to table: payment_summary_table.
+2024-12-20 16:22:31,547 - INFO - Starting to write DataFrame to table: duration_summary_table
+2024-12-20 16:22:33,397 - INFO - Data successfully written to table: duration_summary_table.
+2024-12-20 16:22:33,400 - INFO - Starting to write DataFrame to table: profitable_actors_table
+2024-12-20 16:23:17,708 - INFO - Data successfully written to table: profitable_actors_table.
+2024-12-20 16:23:17,711 - INFO - Starting to write DataFrame to text file: payment_summary.txt
+2024-12-20 16:23:17,729 - INFO - Processed data successfully written to reports/payment_summary.txt
+2024-12-20 16:23:17,731 - INFO - Starting to write DataFrame to text file: duration_summary.txt
+2024-12-20 16:23:17,747 - INFO - Processed data successfully written to reports/duration_summary.txt
+2024-12-20 16:23:17,750 - INFO - Starting to write DataFrame to text file: profitable_actors.txt
+2024-12-20 16:23:17,765 - INFO - Processed data successfully written to reports/profitable_actors.txt
+2024-12-20 17:00:56,013 - INFO - Starting to clear the contents of folder: reports
+2024-12-20 17:00:56,023 - INFO - Contents of folder reports have been cleared.
+2024-12-20 17:00:56,026 - INFO - Starting to manage tables in the database.
+2024-12-20 17:00:59,975 - INFO - Tables:
+
+                                         payment_summary_table
+                                         duration_summary_table
+                                         profitable_actors_table 
+
+                                 have been recreated in the database.
+2024-12-20 17:00:59,978 - INFO - Starting to calculate payments summary.
+2024-12-20 17:01:01,769 - INFO - Payments summary successfully retrieved.
+2024-12-20 17:01:01,770 - INFO - Starting to calculate duration summary.
+2024-12-20 17:01:03,731 - INFO - Duration summary successfully retrieved.
+2024-12-20 17:01:03,733 - INFO - Starting to calculate profitable actors.
+2024-12-20 17:01:06,086 - INFO - Profitable actors successfully retrieved.
+2024-12-20 17:01:06,089 - INFO - Starting to write DataFrame to table: payment_summary_table
+2024-12-20 17:01:07,845 - INFO - Data successfully written to table: payment_summary_table.
+2024-12-20 17:01:07,847 - INFO - Starting to write DataFrame to table: duration_summary_table
+2024-12-20 17:01:09,670 - INFO - Data successfully written to table: duration_summary_table.
+2024-12-20 17:01:09,672 - INFO - Starting to write DataFrame to table: profitable_actors_table
+2024-12-20 17:01:54,113 - INFO - Data successfully written to table: profitable_actors_table.
+2024-12-20 17:01:54,116 - INFO - Starting to write DataFrame to text file: payment_summary.txt
+2024-12-20 17:01:54,137 - INFO - Processed data successfully written to reports/payment_summary.txt
+2024-12-20 17:01:54,140 - INFO - Starting to write DataFrame to text file: duration_summary.txt
+2024-12-20 17:01:54,159 - INFO - Processed data successfully written to reports/duration_summary.txt
+2024-12-20 17:01:54,161 - INFO - Starting to write DataFrame to text file: profitable_actors.txt
+2024-12-20 17:01:54,179 - INFO - Processed data successfully written to reports/profitable_actors.txt
+2024-12-20 22:32:37,819 - INFO - Starting to clear the contents of folder: reports
+2024-12-20 22:32:37,852 - INFO - Contents of folder reports have been cleared.
+2024-12-20 22:32:37,857 - INFO - Starting to manage tables in the database.
+2024-12-20 22:32:42,190 - INFO - Tables:
+
+                                         payment_summary_table
+                                         duration_summary_table
+                                         profitable_actors_table 
+
+                                 have been recreated in the database.
+2024-12-20 22:32:42,198 - INFO - Starting to calculate payments summary.
+2024-12-20 22:32:43,916 - INFO - Payments summary successfully retrieved.
+2024-12-20 22:32:44,135 - INFO - Starting to calculate duration summary.
+2024-12-20 22:32:45,734 - INFO - Duration summary successfully retrieved.
+2024-12-20 22:32:45,956 - INFO - Starting to calculate profitable actors.
+2024-12-20 22:32:48,787 - INFO - Profitable actors successfully retrieved.
+2024-12-20 22:32:49,005 - INFO - Starting to write DataFrame to table: payment_summary_table
+2024-12-20 22:32:50,856 - INFO - Data successfully written to table: payment_summary_table.
+2024-12-20 22:32:50,859 - INFO - Starting to write DataFrame to table: duration_summary_table
+2024-12-20 22:32:52,611 - INFO - Data successfully written to table: duration_summary_table.
+2024-12-20 22:32:52,613 - INFO - Starting to write DataFrame to table: profitable_actors_table
+2024-12-20 22:33:36,975 - INFO - Data successfully written to table: profitable_actors_table.
+2024-12-20 22:33:36,978 - INFO - Starting to write DataFrame to text file: payment_summary.txt
+2024-12-20 22:33:37,102 - INFO - Processed data successfully written to reports/payment_summary.txt
+2024-12-20 22:33:37,103 - INFO - Starting to write DataFrame to text file: duration_summary.txt
+2024-12-20 22:33:37,118 - INFO - Processed data successfully written to reports/duration_summary.txt
+2024-12-20 22:33:37,120 - INFO - Starting to write DataFrame to text file: profitable_actors.txt
+2024-12-20 22:33:37,139 - INFO - Processed data successfully written to reports/profitable_actors.txt
+2024-12-20 22:34:11,107 - INFO - Starting to clear the contents of folder: reports
+2024-12-20 22:34:11,126 - INFO - Contents of folder reports have been cleared.
+2024-12-20 22:34:11,128 - INFO - Starting to manage tables in the database.
+2024-12-20 22:34:15,373 - INFO - Tables:
+
+                                         payment_summary_table
+                                         duration_summary_table
+                                         profitable_actors_table 
+
+                                 have been recreated in the database.
+2024-12-20 22:34:15,376 - INFO - Starting to calculate payments summary.
+2024-12-20 22:34:17,390 - INFO - Payments summary successfully retrieved.
+2024-12-20 22:34:17,392 - INFO - Starting to calculate duration summary.
+2024-12-20 22:34:19,195 - INFO - Duration summary successfully retrieved.
+2024-12-20 22:34:19,198 - INFO - Starting to calculate profitable actors.
+2024-12-20 22:34:21,102 - INFO - Profitable actors successfully retrieved.
+2024-12-20 22:34:21,103 - INFO - Starting to write DataFrame to table: payment_summary_table
+2024-12-20 22:34:22,889 - INFO - Data successfully written to table: payment_summary_table.
+2024-12-20 22:34:22,891 - INFO - Starting to write DataFrame to table: duration_summary_table
+2024-12-20 22:34:24,697 - INFO - Data successfully written to table: duration_summary_table.
+2024-12-20 22:34:24,699 - INFO - Starting to write DataFrame to table: profitable_actors_table
+2024-12-20 22:35:09,186 - INFO - Data successfully written to table: profitable_actors_table.
+2024-12-20 22:35:09,188 - INFO - Starting to write DataFrame to text file: payment_summary.txt
+2024-12-20 22:35:09,203 - INFO - Processed data successfully written to reports/payment_summary.txt
+2024-12-20 22:35:09,204 - INFO - Starting to write DataFrame to text file: duration_summary.txt
+2024-12-20 22:35:09,218 - INFO - Processed data successfully written to reports/duration_summary.txt
+2024-12-20 22:35:09,219 - INFO - Starting to write DataFrame to text file: profitable_actors.txt
+2024-12-20 22:35:09,233 - INFO - Processed data successfully written to reports/profitable_actors.txt
+2024-12-20 22:35:37,321 - INFO - Starting to clear the contents of folder: reports
+2024-12-20 22:35:37,341 - INFO - Contents of folder reports have been cleared.
+2024-12-20 22:35:37,342 - INFO - Starting to manage tables in the database.
+2024-12-20 22:35:41,407 - INFO - Tables:
+
+                                         payment_summary_table
+                                         duration_summary_table
+                                         profitable_actors_table 
+
+                                 have been recreated in the database.
+2024-12-20 22:35:41,409 - INFO - Starting to calculate payments summary.
+2024-12-20 22:35:42,997 - INFO - Payments summary successfully retrieved.
+2024-12-20 22:35:43,214 - INFO - Starting to calculate duration summary.
+2024-12-20 22:35:44,767 - INFO - Duration summary successfully retrieved.
+2024-12-20 22:35:44,983 - INFO - Starting to calculate profitable actors.
+2024-12-20 22:35:47,091 - INFO - Profitable actors successfully retrieved.
+2024-12-20 22:35:47,303 - INFO - Starting to write DataFrame to table: payment_summary_table
+2024-12-20 22:35:49,090 - INFO - Data successfully written to table: payment_summary_table.
+2024-12-20 22:35:49,092 - INFO - Starting to write DataFrame to table: duration_summary_table
+2024-12-20 22:35:50,925 - INFO - Data successfully written to table: duration_summary_table.
+2024-12-20 22:35:50,927 - INFO - Starting to write DataFrame to table: profitable_actors_table
+2024-12-20 22:36:35,324 - INFO - Data successfully written to table: profitable_actors_table.
+2024-12-20 22:36:35,327 - INFO - Starting to write DataFrame to text file: payment_summary.txt
+2024-12-20 22:36:35,340 - INFO - Processed data successfully written to reports/payment_summary.txt
+2024-12-20 22:36:35,341 - INFO - Starting to write DataFrame to text file: duration_summary.txt
+2024-12-20 22:36:35,358 - INFO - Processed data successfully written to reports/duration_summary.txt
+2024-12-20 22:36:35,359 - INFO - Starting to write DataFrame to text file: profitable_actors.txt
+2024-12-20 22:36:35,375 - INFO - Processed data successfully written to reports/profitable_actors.txt
