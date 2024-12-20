@@ -4,7 +4,6 @@ import os
 import shutil
 import logging
 import getpass
-
 logging.basicConfig(level=logging.INFO, 
                     format='%(asctime)s - %(levelname)s - %(message)s',
                     handlers=[
