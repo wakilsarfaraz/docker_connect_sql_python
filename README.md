@@ -14,21 +14,36 @@ Following the instructions provided in the repository from step **1 Create the A
 ## Steps to Acquire the Connection Strings
 - Visit the SQL databases in the Azure portal (you can search for this service using the search box at the top and type SQL).
 
+![step-1](images/step1.png)
+
 - In the list of databases that appears, click on the single database **sakila (sakilayaq6nqkx2fcqo/sakila)**.
+
+![step-2](images/step2.png)
 
 - Click on **Settings** and then on **Connection Strings** in the drop down menu.
 
+![step-3](images/step3.png)
+
 - Go to the `ODBC`tab to see the connection string.
 
-- You will need to copy the underlined **Connection Strings** and store it somewhere safely to be used later in the Python script.
+![step-4](images/step4.png)
 
-- You will also need to replace *{your_password_here}* within the connection strings with the actual password of the database which is **Password01**.
+- You will need to copy the underlined parts of the **Connection String** and store it somewhere safely to be used when running the pipeline.
+
+![step-5](images/step5.png)
+
+- Note that the password *{your_password_here}* is a placeholder within the connection strings, which needs to be replaced with the actual password of the database.
+
+- When running the pipeline you will be prompted to enter these three pieces of information:
+
+    * Server name (the longest underlined part in the above screenshot, which you will be different every time you create sakila). 
+    * Username which for this database is **corndeladmin**.
+    * Passoword, which is **Password01**.
 
 ## Connecting to the **Sakila** Database and Creating an ETL Pipeline
 
 This guide will walk you through the steps (using the `pyodbc` library) to connect to the SQL database we have just created. You will learn how to extract data from the database, manage tables within it, and write the processed data back into the database. Follow each step carefully to gain a clear understanding of how to build an ETL pipeline when you are using Python to work with SQL databases on virtual machines or on remote platforms online.
 
-![test image](/images/test.png)
 ### The Python Libraries
 
 #### 1. `pyodbc`
@@ -53,6 +68,11 @@ It is a standard Python library for high-level file operations. It helps in effi
 
 #### 5. `logging`
 This library is used for tracking events during code execution. It provides detailed logs for debugging and monitoring the ETL pipeline, ensuring transparency and easier troubleshooting.
+
+---
+
+#### 6. `getpass`
+The `getpass` library in Python securely prompts the user for sensitive information, such as passwords, without displaying the input on the screen. It is ideal for creating secure, interactive command-line applications.
 
 Let's run the following cell to import all of these libraries.
 
@@ -94,17 +114,19 @@ def clear_folder(folder_path):
 #### Function: `manage_tables`
 The `manage_tables` function is responsible for resetting the structure of specific database tables. It connects to the database using the provided connection string and executes SQL scripts to drop existing tables (`payment_summary_table` and `duration_summary_table`) and recreate them. The function reads the SQL commands from files located in the `queries` folder, ensuring the database is prepared for new data. It handles errors, such as database connection issues or missing SQL files, and logs the process for transparency and troubleshooting.
 ```python
-def manage_tables(connection_string):
+ddef manage_tables(connection_string):
     logging.info("Starting to manage tables in the database.")
     try:
         connection = pyodbc.connect(connection_string)
         cursor = connection.cursor()
 
         # Paths to the SQL files
-        drop_payment_table_file = os.path.join('queries', 'drop_payment_summary_table.sql')
-        drop_duration_table_file = os.path.join('queries', 'drop_duration_summary_table.sql')
-        create_payment_table_file = os.path.join('queries', 'create_payment_summary_table.sql')
-        create_duration_table_file = os.path.join('queries', 'create_duration_summary_table.sql')
+        drop_payment_table_file = os.path.join('sqlFiles/tableManagement', 'drop_payment_summary_table.sql')
+        drop_duration_table_file = os.path.join('sqlFiles/tableManagement', 'drop_duration_summary_table.sql')
+        drop_profitable_table_file = os.path.join('sqlFiles/tableManagement','drop_profitable_actors_table.sql')
+        create_payment_table_file = os.path.join('sqlFiles/tableManagement', 'create_payment_summary_table.sql')
+        create_duration_table_file = os.path.join('sqlFiles/tableManagement', 'create_duration_summary_table.sql')
+        create_profitable_actors_table_file = os.path.join('sqlFiles/tableManagement','create_profitable_actors_table.sql')
 
         # Helper function to execute SQL files
         def execute_sql_file(file_path):
@@ -115,14 +137,19 @@ def manage_tables(connection_string):
         # Execute drop table SQL files
         execute_sql_file(drop_payment_table_file)
         execute_sql_file(drop_duration_table_file)
+        execute_sql_file(drop_profitable_table_file)
         connection.commit()
 
         # Execute create table SQL files
         execute_sql_file(create_payment_table_file)
         execute_sql_file(create_duration_table_file)
+        execute_sql_file(create_profitable_actors_table_file)
         connection.commit()
 
-        logging.info("Tables payment_summary_table and duration_summary_table have been recreated in the database.")
+        logging.info("Tables:\n\n                                         payment_summary_table\n"         
+                     "                                         duration_summary_table\n"
+                     "                                         profitable_actors_table \n\n"
+                     "                                  have been recreated in the database.")
     except pyodbc.Error as e:
         logging.error(f"Error managing tables: {e}")
     except FileNotFoundError as e:
@@ -218,23 +245,75 @@ def write_local_txt_output(dataframe, folder_path, file_name):
 ```
 #### Running the pipeline
 
-This part of the code defines the entry point for running the ETL pipeline. Here, we provide the connection string, which we saved earlier from the ODBC tab for the SQL database **sakila** that we created on the ACG sandbox. This is required to establish a connection with the SQL database. Additionally, we declare the target folder for writing the output files locally, which is named `reports` in this case. The rest of the code orchestrates the execution of each function in the correct order: clearing the target folder, managing database tables, calculating summaries for payments and durations, writing the processed data back to the database, and finally saving the results as text files in the specified folder.
+This section of the code serves as the entry point for the script. It begins by prompting the user to provide the SQL Server address, username, and password, ensuring secure input for the connection. A connection string is then constructed to establish communication with the `sakila` database using the specified SQL Server. The script prepares a target folder (`reports`) by clearing any existing content and processes the database tables using custom queries.
+
+It performs the following tasks:
+1. Executes the SQL query for payments and calculates summary data.
+2. Executes the SQL query for film durations and calculates summary data.
+3. Executes the SQL query for profitable actors and calculates a table of the most profitable actors.
+4. Saves the results into three summary tables in the database: `payment_summary_table`, `duration_summary_table`, and `profitable_actors_table`.
+5. Exports also the same results into local `.txt` files, stored in the `reports` folder.
+
+The pipeline ensures that all relevant data is processed, stored, and made accessible for further use.
 ```python
 if __name__ == "__main__":
-    connection_string = '''Driver={ODBC Driver 18 for SQL Server};
-                            Server=tcp:sakilayaq6nqkx2fcqo.database.windows.net,1433;
-                            Database=sakila;Uid=corndeladmin;Pwd={Password01};
-                            Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;'''
+    server = input("Please enter the SQL Server address (hint: starts with tcp and ends with .net): ").strip()
+    username = input("Please enter your Username:").strip()
+    password = getpass.getpass("Please enter your Password: ").strip()
+    connection_string =   str(
+    f"Driver={{ODBC Driver 18 for SQL Server}};"
+    f"Server={server},1433;"
+    f"Database=sakila;"
+    f"Uid={username};"
+    f"Pwd={password};"
+    f"Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;"
+)
     target_folder = "reports"
 
     clear_folder(target_folder)
     manage_tables(connection_string)
-    payments_df = calculate_payments("queries/payments.sql", connection_string)
-    duration_df = calculate_duration("queries/filmduration.sql", connection_string)
+    payments_df = calculate_payments("sqlFiles/queries/payments.sql", connection_string)
+    duration_df = calculate_duration("sqlFiles/queries/filmduration.sql", connection_string)
+    profitable_actors_df = calculate_profitable_actors("sqlFiles/queries/profitable_actors.sql", connection_string)
 
     write_dataframe_to_db(payments_df, "payment_summary_table", connection_string)
     write_dataframe_to_db(duration_df, "duration_summary_table", connection_string)
+    write_dataframe_to_db(profitable_actors_df,"profitable_actors_table", connection_string)
 
     write_local_txt_output(payments_df, "reports", "payment_summary.txt")
     write_local_txt_output(duration_df, "reports", "duration_summary.txt")
+    write_local_txt_output(profitable_actors_df, "reports", "profitable_actors.txt")
+```
+# Scenario Based Exercise
+You have been provided this repository and the following SQL query. You have been asked to embed this query as an additional functionality into the pipeline and automate its execution each time the pipeline is run. Note that you will need to create the required SQL files for clearing a table (if it exists), creating a table with appropriate name, and one SQL file containing the query that is provided. You will need to place these SQL files in the correct folders within the `sqlFiles` directory. Additionally you will need to create a new function into the pipeline to correctly execute the given query and automate the output by writing a table of the results into the database and a `.txt` of the same results into the reports folder locally.
+
+The query basically retrieves a table of table of film sales, and add a rank column (rk) based on which film has the most sales. The output of the query is a table with three columns namely `film_id`, `sales`, and `rk`.
+
+```SQL
+WITH film_sales AS (
+    SELECT 
+        f.film_id, 
+        SUM(p.amount) AS sales
+    FROM 
+        film f
+    INNER JOIN inventory i ON f.film_id = i.film_id
+    INNER JOIN rental r ON i.inventory_id = r.inventory_id
+    INNER JOIN payment p ON r.rental_id = p.rental_id
+    GROUP BY 
+        f.film_id
+)
+
+SELECT 
+    a.film_id, 
+    a.sales, 
+    COUNT(b.film_id) + 1 AS rk
+FROM 
+    film_sales a
+LEFT JOIN 
+    film_sales b ON a.sales < b.sales
+GROUP BY 
+    a.film_id, 
+    a.sales
+ORDER BY 
+    rk;
 ```

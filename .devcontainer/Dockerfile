@@ -1,3 +1,4 @@
+# Use the Python 3.11 image with useful data libraries
 FROM mcr.microsoft.com/devcontainers/python:3.11-bullseye
 
 # Set working directory
@@ -16,11 +17,21 @@ RUN apt-get update && apt-get install -y \
     && apt-get update && ACCEPT_EULA=Y apt-get install -y msodbcsql18 \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy project files
+# Copy project files into the container
 COPY . .
 
-# Install Python dependencies
-RUN pip install notebook==7.0.7 pandas==2.0.3 pyarrow==15.0.0 seaborn==0.13.2 sweetviz==2.3.1 pyodbc==5.2.0 SQLAlchemy==2.0.36
+# Install Python dependencies from requirements.txt if it exists
+RUN if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+# Install additional Python dependencies if not included in requirements.txt
+RUN pip install \
+    notebook==7.0.7 \
+    pandas==2.0.3 \
+    pyarrow==15.0.0 \
+    seaborn==0.13.2 \
+    sweetviz==2.3.1 \
+    pyodbc==5.2.0 \
+    SQLAlchemy==2.0.36
 
 # Set default command
 CMD ["bash"]
