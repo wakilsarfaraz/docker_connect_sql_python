@@ -4,6 +4,7 @@ import os
 import shutil
 import logging
 import getpass
+from etl_pipeline import manage_notebook
 logging.basicConfig(level=logging.INFO, 
                     format='%(asctime)s - %(levelname)s - %(message)s',
                     handlers=[
@@ -183,3 +184,4 @@ if __name__ == "__main__":
     write_local_txt_output(payments_df, "reports", "payment_summary.txt")
     write_local_txt_output(duration_df, "reports", "duration_summary.txt")
     write_local_txt_output(profitable_actors_df, "reports", "profitable_actors.txt")
+    manage_notebook.create_or_update_notebook()
