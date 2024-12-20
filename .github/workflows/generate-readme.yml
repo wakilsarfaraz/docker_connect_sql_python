@@ -40,5 +40,4 @@ jobs:
           git add README.md
           git commit -m "Auto-generate README.md [skip ci]" || echo "No changes to commit"
           git push origin HEAD
-env:
-	GITHUB_TOKEN: ${{ secretes.GITHUB_TOKEN }}
+
