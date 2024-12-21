@@ -2,43 +2,6 @@
 
 This document is auto-generated from the codebase.
 
-## clear_folder.py
-
-No module-level documentation available.
-
-### Function: `clear_folder`
-
-Clears the contents of a specified folder by deleting all files, subdirectories, 
-and symbolic links within it.
-
-This function recursively deletes all items inside the given folder path, including:
-- Regular files
-- Symbolic links
-- Subdirectories and their contents
-
-Args:
-    folder_path (str): The path to the folder whose contents need to be cleared.
-
-Logging:
-    - Logs the start of the clearing process at the INFO level.
-    - Logs a success message when the folder is cleared at the INFO level.
-    - Logs any errors encountered during the process at the ERROR level.
-
-Raises:
-    Exception: If any error occurs while attempting to delete files, subdirectories, 
-    or symbolic links.
-
-Examples:
-    >>> clear_folder("/path/to/directory")
-    INFO: Starting to clear the contents of folder: /path/to/directory
-    INFO: Contents of folder /path/to/directory have been cleared.
-
-Note:
-    - The function does not delete the folder itself, only its contents.
-    - Ensure that the folder exists before calling this function. If the folder does not 
-      exist, an error may be raised.
-    - Use with caution as this action is irreversible.
-
 ## data_processing.py
 
 data_processing.py
@@ -249,6 +212,18 @@ Examples:
                               "Database=database_name;"
                               "Uid=username;Pwd=password;")
 
+## manage_notebook.py
+
+No module-level documentation available.
+
+### Function: `parse_etl_script_with_ast_and_main`
+
+No documentation available.
+
+### Function: `create_or_update_notebook`
+
+No documentation available.
+
 ## file_operations.py
 
 file_operations.py
@@ -318,15 +293,40 @@ Notes:
     - The index is not included in the output file (`index=False`).
     - Ensure the DataFrame contains valid data before calling this function.
 
-## manage_notebook.py
+## clear_folder.py
 
 No module-level documentation available.
 
-### Function: `parse_etl_script_with_ast_and_main`
+### Function: `clear_folder`
 
-No documentation available.
+Clears the contents of a specified folder by deleting all files, subdirectories, 
+and symbolic links within it.
 
-### Function: `create_or_update_notebook`
+This function recursively deletes all items inside the given folder path, including:
+- Regular files
+- Symbolic links
+- Subdirectories and their contents
 
-No documentation available.
+Args:
+    folder_path (str): The path to the folder whose contents need to be cleared.
+
+Logging:
+    - Logs the start of the clearing process at the INFO level.
+    - Logs a success message when the folder is cleared at the INFO level.
+    - Logs any errors encountered during the process at the ERROR level.
+
+Raises:
+    Exception: If any error occurs while attempting to delete files, subdirectories, 
+    or symbolic links.
+
+Examples:
+    >>> clear_folder("/path/to/directory")
+    INFO: Starting to clear the contents of folder: /path/to/directory
+    INFO: Contents of folder /path/to/directory have been cleared.
+
+Note:
+    - The function does not delete the folder itself, only its contents.
+    - Ensure that the folder exists before calling this function. If the folder does not 
+      exist, an error may be raised.
+    - Use with caution as this action is irreversible.
 
