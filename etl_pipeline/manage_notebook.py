@@ -365,4 +365,4 @@ The pipeline ensures that all relevant data is processed, stored, and made acces
     print(f"The Jupyter Notebook {notebook_name} created or updated successfully.")
 
 # Run the script
-# create_or_update_notebook()
+create_or_update_notebook()
