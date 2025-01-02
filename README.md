@@ -122,6 +122,18 @@ Raises:
 Examples:
     >>> profitable_actors_df = calculate_profitable_actors("queries/profitable_actors.sql", connection_string)
 
+## manage_notebook.py
+
+No module-level documentation available.
+
+### Function: `parse_etl_script_with_ast_and_main`
+
+No documentation available.
+
+### Function: `create_or_update_notebook`
+
+No documentation available.
+
 ## database_operations.py
 
 database_operations.py
@@ -211,18 +223,6 @@ Examples:
                               "Server=server_name;"
                               "Database=database_name;"
                               "Uid=username;Pwd=password;")
-
-## manage_notebook.py
-
-No module-level documentation available.
-
-### Function: `parse_etl_script_with_ast_and_main`
-
-No documentation available.
-
-### Function: `create_or_update_notebook`
-
-No documentation available.
 
 ## file_operations.py
 
