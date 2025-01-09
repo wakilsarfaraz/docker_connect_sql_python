@@ -89,7 +89,94 @@ def create_or_update_notebook():
 
     # Add notebook content dynamically
     markdown_cells = [
-        """# Connecting to SQL Database using `pyodbc` Library in Python
+        """ # Why Connecting to SQL Database Using Python
+Being able to connect to and interact with SQL databases is a key part 
+of data engineering. Understanding the content of this notebook is an integral 
+part of successful completion of the module "Connecting to SQL Databases Using 
+Python". The module focuses on giving learners practical skills to automate and 
+manage data workflows. Imagine handling large amounts of data stored in 
+SQL databases. Manually querying and extracting this data can be slow 
+and prone to mistakes. As a data engineer, automating these tasks saves 
+time and reduces errors. Python makes this easier with libraries like 
+`pyodbc`, `pandas`, and `sqlalchemy`, helping you connect to databases, 
+run queries, and handle data efficiently. Think of a scenario where the 
+sales team needs regular reports from a company’s SQL database. By using 
+Python to automate data extraction and reporting, you create a process 
+that’s quicker and more reliable. Python also lets you adjust the process 
+as needed, making it easier to adapt to new requirements. This module 
+uses a Jupyter Notebook with five activities, starting with the basics 
+of connecting to databases and progressing to more advanced tasks. The 
+final stretch activity involves adding new features to an existing Python 
+pipeline that connects to an SQL database on ACG. Using `pyodbc`, the pipeline 
+extracts data, runs SQL queries from `.SQL` files, and writes results back to 
+the database and as `.txt` files. By completing this module, learners build 
+skills that reflect real-world tasks. These abilities are valuable for 
+data engineering, data analytics, and data science roles, where Python is 
+used for data handling and automation. The goal of this module is to help 
+learners develop the skills they need to connect to SQL databases, automate 
+workflows, and work more efficiently in data-driven environments.
+
+# Instructions for Using this Notebook
+
+This notebook is created to help you explore and understand the 
+code used in the automated pipeline found in the script `run_etl_as_script.py`.
+
+This notebook is a great starting point for you to experiment with while completing 
+Activities 4, 5, and 6. If at any point you want to reset the notebook to its 
+original working form, you can do so easily. To reset the notebook, simply run the script
+`run_etl_as_package.py`. This will regenerate the 
+notebook in its fully functional state.
+
+The notebook is created automatically by a Python script called `manage_notebook.py`, 
+which can be found inside the `etl_pipeline` folder.
+
+The notebook has two main purposes:
+1. To help you understand the code by running each cell. Each function is 
+explained briefly before the code, allowing you to see how the parts work 
+step by step.
+2. To support you in Activities 4, 5, and 6 in the notebook 
+`Practical_Activities_Notebook.ipynb`. This notebook is a useful 
+starting point where you can try out and edit the code without 
+worrying about breaking the pipeline. 
+
+In Activity 6, you will be challenged to modify the script `manage_notebook.py` 
+(which is the script that generates this notebook) to include new
+functionalities that you will embed into the pipeline to ensure 
+that any new functions you add to the pipeline `run_etl_as_script.py`
+are included in the automatic generation of this notebook.
+
+# Understanding the Tools: SQLAlchemy and pyodbc
+
+SQLAlchemy and pyodbc are two tools that help Python connect 
+to SQL databases, but they are not the only ones. There are other 
+tools like psycopg2 for PostgreSQL, MySQL Connector for MySQL, and 
+sqlite3 for SQLite. However, SQLAlchemy and pyodbc are widely used 
+and versatile for different types of databases, making them useful 
+to learn. In this module, we will focus on pyodbc because it is simple 
+to use, easy to set up, and works directly with SQL queries. This makes 
+it a practical choice for connecting to databases and building automated 
+pipelines without adding extra complexity.
+
+**SQLAlchemy** lets you work with databases by writing Python 
+code instead of SQL. It uses a method called Object Relational Mapping (ORM), 
+which means you can create and manage database tables by working with Python 
+objects and code. This can make managing databases easier and help with more 
+complex projects. However, learning SQLAlchemy can take time, and it might feel
+more complicated for simple tasks.
+
+**pyodbc** is simpler and allows you to connect directly to a database and 
+run SQL queries from Python. It doesn’t add extra layers or tools – you write 
+the SQL yourself and send it to the database. This makes pyodbc easy to use 
+and quick to learn. However, because you have to write the SQL manually, there’s 
+a higher chance of small errors, and the code can get repetitive for bigger projects.
+
+In this module, we will use **pyodbc** because it is straightforward, 
+easy to set up, and works well for running SQL queries and building 
+automated pipelines.
+
+
+  
+# Connecting to SQL Database using `pyodbc` Library
 This notebook is a step-by-step guide to help you learn how to 
 use Python functions and libraries to connect to an SQL database 
 using the `pyodbc` library. Each section of the notebook includes 
@@ -135,64 +222,8 @@ which needs to be replaced with the actual password of the database.
     every time you create sakila). 
     * Username which for this database is **corndeladmin**.
     * Passoword, which is **Password01**.
-
-## Connecting to the **Sakila** Database and Creating an ETL Pipeline
-
-This guide will walk you through the steps (using the `pyodbc` library) to connect to the 
-SQL database we have just created. You will learn how to extract data from the database, manage 
-tables within it, and write the processed data back into the database. Follow each step carefully 
-to gain a clear understanding of how to build an ETL pipeline when you are using Python to work with 
-SQL databases on virtual machines or on remote platforms online.
-
-### The Python Libraries
-
-#### 1. `pyodbc`
-It is a Python library for connecting to SQL databases using ODBC drivers. It allows 
-communication between Python and SQL databases, making it essential for running SQL queries 
-and managing database connections.
-
----
-
-#### 2. `pandas`
-This is a Python library for data manipulation and analysis. It provides powerful 
-tools to handle tabular data, such as reading, writing, and processing datasets extracted 
-from the database.
-
----
-
-#### 3. `os`
-This is a standard Python library for interacting with the operating system. 
-It enables tasks like file and directory manipulation, crucial for managing input/output 
-files during the ETL process.
-
----
-
-#### 4. `shutil`
-It is a standard Python library for high-level file operations. It helps in efficiently 
-clearing or organising folders by removing directories and their contents.
-
----
-
-#### 5. `logging`
-This library is used for tracking events during code execution. It provides detailed 
-logs for debugging and monitoring the ETL pipeline, ensuring transparency and easier 
-troubleshooting.
-
----
-
-#### 6. `getpass`
-The `getpass` library in Python securely prompts the user for sensitive information, 
-such as passwords, without displaying the input on the screen. It is ideal for creating 
-secure, interactive command-line applications.
-
-Let's run the following cell to import all of these libraries.
-
-
-
-
-
 """,
-        """## Connecting to the **Sakila** Database and Creating an ETL Pipeline
+        """## **Sakila** Database Connection & Creating an ETL Pipeline
 
 This guide will walk you through the steps (using the `pyodbc` library) to connect to the SQL 
 database we have just created. You will learn how to extract data from the database, manage 
