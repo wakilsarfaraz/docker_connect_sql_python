@@ -28,9 +28,9 @@ if __name__ == "__main__":
     clear_folder("reports")
     manage_tables(connection_string)
 
-    payments_df = calculate_payments("sqlFiles/queries/payments.sql", connection_string)
-    duration_df = calculate_duration("sqlFiles/queries/filmduration.sql", connection_string)
-    profitable_actors_df = calculate_profitable_actors("sqlFiles/queries/profitable_actors.sql", connection_string)
+    payments_df = calculate_payments("sql_files/queries/payments.sql", connection_string)
+    duration_df = calculate_duration("sql_files/queries/film_duration.sql", connection_string)
+    profitable_actors_df = calculate_profitable_actors("sql_files/queries/profitable_actors.sql", connection_string)
 
     write_dataframe_to_db(payments_df, "payment_summary_table", connection_string)
     write_dataframe_to_db(duration_df, "duration_summary_table", connection_string)

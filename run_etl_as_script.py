@@ -100,12 +100,12 @@ def manage_tables(connection_string):
     try:
         connection = pyodbc.connect(connection_string)
         cursor = connection.cursor()
-        drop_payment_table_file = os.path.join('sqlFiles/tableManagement', 'drop_payment_summary_table.sql')
-        drop_duration_table_file = os.path.join('sqlFiles/tableManagement', 'drop_duration_summary_table.sql')
-        drop_profitable_table_file = os.path.join('sqlFiles/tableManagement','drop_profitable_actors_table.sql')
-        create_payment_table_file = os.path.join('sqlFiles/tableManagement', 'create_payment_summary_table.sql')
-        create_duration_table_file = os.path.join('sqlFiles/tableManagement', 'create_duration_summary_table.sql')
-        create_profitable_actors_table_file = os.path.join('sqlFiles/tableManagement','create_profitable_actors_table.sql')
+        drop_payment_table_file = os.path.join('sql_files/table_management', 'drop_payment_summary_table.sql')
+        drop_duration_table_file = os.path.join('sql_files/table_management', 'drop_duration_summary_table.sql')
+        drop_profitable_table_file = os.path.join('sql_files/table_management','drop_profitable_actors_table.sql')
+        create_payment_table_file = os.path.join('sql_files/table_management', 'create_payment_summary_table.sql')
+        create_duration_table_file = os.path.join('sql_files/table_management', 'create_duration_summary_table.sql')
+        create_profitable_actors_table_file = os.path.join('sql_files/table_management','create_profitable_actors_table.sql')
         def execute_sql_file(file_path):
             with open(file_path, 'r') as file:
                 sql = file.read()
@@ -375,9 +375,9 @@ if __name__ == "__main__":
     target_folder = "reports"
     clear_folder(target_folder)
     manage_tables(connection_string)
-    payments_df = calculate_payments("sqlFiles/queries/payments.sql", connection_string)
-    duration_df = calculate_duration("sqlFiles/queries/filmduration.sql", connection_string)
-    profitable_actors_df = calculate_profitable_actors("sqlFiles/queries/profitable_actors.sql", connection_string)
+    payments_df = calculate_payments("sql_files/queries/payments.sql", connection_string)
+    duration_df = calculate_duration("sql_files/queries/film_duration.sql", connection_string)
+    profitable_actors_df = calculate_profitable_actors("sql_files/queries/profitable_actors.sql", connection_string)
     write_dataframe_to_db(payments_df, "payment_summary_table", connection_string)
     write_dataframe_to_db(duration_df, "duration_summary_table", connection_string)
     write_dataframe_to_db(profitable_actors_df,"profitable_actors_table", connection_string)

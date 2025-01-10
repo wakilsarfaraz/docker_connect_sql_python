@@ -43,13 +43,13 @@ def manage_tables(connection_string):
 
     SQL File Structure:
         - Drop Table SQL Files:
-            - 'sqlFiles/tableManagement/drop_payment_summary_table.sql'
-            - 'sqlFiles/tableManagement/drop_duration_summary_table.sql'
-            - 'sqlFiles/tableManagement/drop_profitable_actors_table.sql'
+            - 'sql_files/table_management/drop_payment_summary_table.sql'
+            - 'sql_files/table_management/drop_duration_summary_table.sql'
+            - 'sql_files/table_management/drop_profitable_actors_table.sql'
         - Create Table SQL Files:
-            - 'sqlFiles/tableManagement/create_payment_summary_table.sql'
-            - 'sqlFiles/tableManagement/create_duration_summary_table.sql'
-            - 'sqlFiles/tableManagement/create_profitable_actors_table.sql'
+            - 'sql_files/table_management/create_payment_summary_table.sql'
+            - 'sql_files/table_management/create_duration_summary_table.sql'
+            - 'sql_files/table_management/create_profitable_actors_table.sql'
 
     Raises:
         Exception: If any error occurs during the database operations.
@@ -66,14 +66,14 @@ def manage_tables(connection_string):
         cursor = connection.cursor()
         sql_files = {
             "drop": [
-                'sqlFiles/tableManagement/drop_payment_summary_table.sql',
-                'sqlFiles/tableManagement/drop_duration_summary_table.sql',
-                'sqlFiles/tableManagement/drop_profitable_actors_table.sql'
+                'sql_files/table_management/drop_payment_summary_table.sql',
+                'sql_files/table_management/drop_duration_summary_table.sql',
+                'sql_files/table_management/drop_profitable_actors_table.sql'
             ],
             "create": [
-                'sqlFiles/tableManagement/create_payment_summary_table.sql',
-                'sqlFiles/tableManagement/create_duration_summary_table.sql',
-                'sqlFiles/tableManagement/create_profitable_actors_table.sql'
+                'sql_files/table_management/create_payment_summary_table.sql',
+                'sql_files/table_management/create_duration_summary_table.sql',
+                'sql_files/table_management/create_profitable_actors_table.sql'
             ]
         }
         for sql_type, files in sql_files.items():
