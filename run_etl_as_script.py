@@ -1,10 +1,10 @@
 import pyodbc
 import pandas as pd
-import os
+from pathlib import Path
 import shutil
 import logging
 import getpass
-from etl_pipeline import manage_notebook
+
 logging.basicConfig(level=logging.INFO, 
                     format='%(asctime)s - %(levelname)s - %(message)s',
                     handlers=[
@@ -48,16 +48,15 @@ def clear_folder(folder_path):
     """
     logging.info(f"Starting to clear the contents of folder: {folder_path}")
     try:
-        for item in os.listdir(folder_path):
-            item_path = os.path.join(folder_path, item)
-            if os.path.isfile(item_path) or os.path.islink(item_path):
-                os.unlink(item_path)
-            elif os.path.isdir(item_path):
-                shutil.rmtree(item_path)
+        folder = Path(folder_path)
+        for item in folder.iterdir():
+            if item.is_file() or item.is_symlink():
+                item.unlink()
+            elif item.is_dir():
+                shutil.rmtree(item)
         logging.info(f"Contents of folder {folder_path} have been cleared.")
     except Exception as e:
         logging.error(f"Error while clearing folder {folder_path}: {e}")
-
 
 def manage_tables(connection_string):
     """
@@ -78,13 +77,13 @@ def manage_tables(connection_string):
 
     SQL File Structure:
         - Drop Table SQL Files:
-            - 'sqlFiles/tableManagement/drop_payment_summary_table.sql'
-            - 'sqlFiles/tableManagement/drop_duration_summary_table.sql'
-            - 'sqlFiles/tableManagement/drop_profitable_actors_table.sql'
+            - 'sql_files/table_management/drop_payment_summary_table.sql'
+            - 'sql_files/table_management/drop_duration_summary_table.sql'
+            - 'sql_files/table_management/drop_profitable_actors_table.sql'
         - Create Table SQL Files:
-            - 'sqlFiles/tableManagement/create_payment_summary_table.sql'
-            - 'sqlFiles/tableManagement/create_duration_summary_table.sql'
-            - 'sqlFiles/tableManagement/create_profitable_actors_table.sql'
+            - 'sql_files/table_management/create_payment_summary_table.sql'
+            - 'sql_files/table_management/create_duration_summary_table.sql'
+            - 'sql_files/table_management/create_profitable_actors_table.sql'
 
     Raises:
         Exception: If any error occurs during the database operations.
@@ -100,24 +99,34 @@ def manage_tables(connection_string):
     try:
         connection = pyodbc.connect(connection_string)
         cursor = connection.cursor()
-        drop_payment_table_file = os.path.join('sql_files/table_management', 'drop_payment_summary_table.sql')
-        drop_duration_table_file = os.path.join('sql_files/table_management', 'drop_duration_summary_table.sql')
-        drop_profitable_table_file = os.path.join('sql_files/table_management','drop_profitable_actors_table.sql')
-        create_payment_table_file = os.path.join('sql_files/table_management', 'create_payment_summary_table.sql')
-        create_duration_table_file = os.path.join('sql_files/table_management', 'create_duration_summary_table.sql')
-        create_profitable_actors_table_file = os.path.join('sql_files/table_management','create_profitable_actors_table.sql')
+
+        base_path = Path("sql_files/table_management")
+
+        # Define SQL file paths using pathlib
+        drop_payment_table_file = base_path / "drop_payment_summary_table.sql"
+        drop_duration_table_file = base_path / "drop_duration_summary_table.sql"
+        drop_profitable_table_file = base_path / "drop_profitable_actors_table.sql"
+        create_payment_table_file = base_path / "create_payment_summary_table.sql"
+        create_duration_table_file = base_path / "create_duration_summary_table.sql"
+        create_profitable_actors_table_file = base_path / "create_profitable_actors_table.sql"
+
         def execute_sql_file(file_path):
-            with open(file_path, 'r') as file:
+            with file_path.open('r') as file:
                 sql = file.read()
                 cursor.execute(sql)
+
+        # Execute drop table scripts
         execute_sql_file(drop_payment_table_file)
         execute_sql_file(drop_duration_table_file)
         execute_sql_file(drop_profitable_table_file)
         connection.commit()
+
+        # Execute create table scripts
         execute_sql_file(create_payment_table_file)
         execute_sql_file(create_duration_table_file)
         execute_sql_file(create_profitable_actors_table_file)
         connection.commit()
+
         logging.info("Tables:\n\n                                         payment_summary_table\n"         
                      "                                         duration_summary_table\n"
                      "                                         profitable_actors_table \n\n"
@@ -129,7 +138,7 @@ def manage_tables(connection_string):
     finally:
         if 'connection' in locals() and connection:
             connection.close()
-# manage_tables() function ends here   
+# manage_tables() function ends here
          
 def calculate_payments(sql_file_path, connection_string):
     """
@@ -258,12 +267,15 @@ def calculate_profitable_actors(sql_file_path, connection_string):
             connection.close()
     return profitable_actors
 
+
 def write_dataframe_to_db(dataframe, table_name, connection_string):
     """
     Inserts rows from a pandas DataFrame into a specified database table.
 
     This function takes a pandas DataFrame, converts its rows into SQL INSERT statements, 
-    and writes them to the specified table in the database.
+    and writes them to the specified table in the database. The function uses `pathlib.Path`
+    for future-proofing file-related operations, though the current implementation does not
+    include file-based interactions.
 
     Args:
         dataframe (pandas.DataFrame): The DataFrame containing the data to insert.
@@ -306,6 +318,7 @@ def write_dataframe_to_db(dataframe, table_name, connection_string):
     finally:
         if 'connection' in locals() and connection:
             connection.close()
+
 
 def write_local_txt_output(dataframe, folder_path, file_name):
     """
@@ -350,14 +363,16 @@ def write_local_txt_output(dataframe, folder_path, file_name):
     """
     logging.info(f"Starting to write DataFrame to text file: {file_name}")
     try:
-        os.makedirs(folder_path, exist_ok=True)
-        file_path = os.path.join(folder_path, file_name)
-        dataframe.to_csv(file_path, sep='\t', index=False)
+        folder = Path(folder_path)
+        folder.mkdir(parents=True, exist_ok=True)  # Create the folder if it doesn't exist
+        file_path = folder / file_name  # Construct the full file path
+        dataframe.to_csv(file_path, sep='\t', index=False)  # Write DataFrame to file
         logging.info(f"Processed data successfully written to {file_path}")
-        return file_path
+        return str(file_path)
     except Exception as e:
         logging.error(f"An error occurred while writing to text file {file_name}: {e}")
         return None
+
 
 # Main block starts here
 

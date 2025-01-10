@@ -31,7 +31,7 @@ RUN pip install \
     seaborn==0.13.2 \
     sweetviz==2.3.1 \
     pyodbc==5.2.0 \
-    SQLAlchemy==2.0.36
+    SQLAlchemy==2.0.36 
 
 # Set default command
 CMD ["bash"]
